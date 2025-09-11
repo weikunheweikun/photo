@@ -42,6 +42,101 @@
   color: #555;
 }
 
+/*精选作品*/
+.gallery-section {
+  max-width: 1200px;
+  margin: 60px auto;
+  position: relative; /* 按钮绝对定位参考 */
+}
+
+.gallery-container {
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.gallery-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item {
+  flex: 0 0 auto;
+  width: 540px;        /* 每张图片宽度 */
+  margin: 0 20px;      /* 图片间距 */
+}
+
+.gallery-item img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* 按钮样式 */
+.gallery-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.3s;
+  z-index: 10;
+}
+
+/* 左右按钮位置在图片两侧，不挡图片 */
+.gallery-btn.prev {
+  left: -30px;  /* 可根据需要调整 */
+}
+
+.gallery-btn.next {
+  right: -30px; /* 可根据需要调整 */
+}
+
+/* 不可点击时半透明 */
+.gallery-btn[disabled] {
+  opacity: 0.45;
+  cursor: default;
+}
+
+
+    /* 分隔线 */
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;   /* 文字居中 */
+  gap: 1rem;
+  margin: 40px 0;
+  color: #555;
+  font-weight: 600;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  /* 不用 position:absolute，避免被 overflow 截断 */
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #ddd;
+}
+
+/* 文字块，使用背景色遮盖横线 */
+.section-divider span {
+  padding: 0 14px;
+  background: #f5f5f5;   /* 如果该区域不是白色，把这里改成对应背景色 */
+  z-index: 1;
+  line-height: 1;
+  font-size: 24px;
+}
+
+
 
     /* 中间左右分栏 */
     .main {
@@ -219,6 +314,31 @@
   </div>
 </div>
   </section>
+<!--精选作品-->
+<section class="gallery-section">
+<div class="gallery-section">
+  <button class="gallery-btn prev">‹</button>
+  <div class="gallery-container">
+    <div class="gallery-track">
+      <div class="gallery-item"><img src="images/zuopin1.jpg" alt=""></div>
+      <div class="gallery-item"><img src="images/zuopin2.jpg" alt=""></div>
+      <div class="gallery-item"><img src="images/zuopin3.jpg" alt=""></div>
+      <div class="gallery-item"><img src="images/zuopin4.jpg" alt=""></div>
+      <div class="gallery-item"><img src="images/zuopin5.jpg" alt=""></div>
+      <div class="gallery-item"><img src="images/zuopin6.jpg" alt=""></div>
+      <!-- 添加更多图片 -->
+    </div>
+  </div>
+  <button class="gallery-btn next">›</button>
+</div>
+
+</section>
+
+
+  <!-- 分隔线 -->
+  <div class="divider"></div>
+  <div class="section-divider"><span>个人经历</span></div>
+
 
   <!-- 中间左右分栏 -->
   <section class="main">
@@ -230,7 +350,6 @@
 
     <!-- 右侧个人经历 -->
     <div class="experience">
-      <h2>个人经历</h2>
       <ul>
         <li>2023.05.03：第一次拿起相机，从此开始享受拍照的乐趣</li>
         <li>2025年：取得北京大学药学院理学学士学位</li>
@@ -294,6 +413,46 @@
   <div class="footer-line"></div>
   <p>© 2025 Walter He. All rights reserved.</p>
 </footer>
+
+<script>
+(function () {
+  const track = document.querySelector('.gallery-track');
+  const prevBtn = document.querySelector('.gallery-btn.prev');
+  const nextBtn = document.querySelector('.gallery-btn.next');
+  const items = Array.from(document.querySelectorAll('.gallery-item'));
+
+  let currentIndex = 0;
+
+  function updateGallery() {
+    const itemWidth = items[0].getBoundingClientRect().width + 40; // 40 = margin左右各20
+    track.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex >= items.length - 1;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) currentIndex--;
+    updateGallery();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < items.length - 1) currentIndex++;
+    updateGallery();
+  });
+
+  window.addEventListener('resize', updateGallery);
+  window.addEventListener('load', updateGallery);
+
+  updateGallery();
+})();
+
+
+
+</script>
+
+
+
 
 </body>
 </html>
