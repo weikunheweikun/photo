@@ -19,7 +19,7 @@
   max-width: 1400px;       /* 限制内容区最大宽度 */
   margin: 0 auto;          /* 居中 */
   padding: 40px;
-  background-color: #f0f0f0;
+  background-color: #d5d5d5;
   border-radius: 8px;      /* 圆角更美观，可选 */
 }
 
@@ -115,14 +115,40 @@
     }
 
     /* 分隔线 */
-    .divider {
-      height: 2px;
-      background-color: #ddd;
-      margin: 40px 0;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;   /* 文字居中 */
+  gap: 1rem;
+  margin: 40px 0;
+  color: #555;
+  font-weight: 600;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  /* 不用 position:absolute，避免被 overflow 截断 */
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #ddd;
+}
+
+/* 文字块，使用背景色遮盖横线 */
+.section-divider span {
+  padding: 0 14px;
+  background: #f5f5f5;   /* 如果该区域不是白色，把这里改成对应背景色 */
+  z-index: 1;
+  line-height: 1;
+  font-size: 24px;
+}
+
+
+
+
 
     /* 作品集 */
     .portfolio {
@@ -154,9 +180,27 @@
 
     .portfolio-item p {
       margin: 8px 0 0;
-      font-size: 14px;
+      font-size: 16px;
       color: #666;
     }
+
+
+    footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #f9f9f9; /* 可以换成你网页底色，或去掉 */
+  color: #555;
+  font-size: 0.8rem;
+}
+
+.footer-line {
+  height: 1px;
+  background-color: #ddd; /* 分割线颜色 */
+  max-width: 1200px;
+  margin: 0 auto 15px auto; /* 居中并和文字留间距 */
+}
+
   </style>
 </head>
 <body>
@@ -169,7 +213,7 @@
   </div>
   <div class="intro">
     <h1>何炜坤</h1>
-    <p>业余老师 / 摄影爱好者</p>
+    <p>摄影爱好者 / 教培工作者</p>
     <p>邮箱: weikunheweikun@gmail.com</p>
     <p>手机: +86 17338140709</p>
   </div>
@@ -188,17 +232,21 @@
     <div class="experience">
       <h2>个人经历</h2>
       <ul>
-        <li>2019-2025：北京大学药学院理学学士</li>
-        <li>2023至今：摄影爱好者</li>
-        <li>2025至今：业余老师</li>
+        <li>2023.05.03：第一次拿起相机，从此开始享受拍照的乐趣</li>
+        <li>2025年：取得北京大学药学院理学学士学位</li>
+        <li>2025年至今：本职工作是一名教培工作者</li>
         <li> <br><br></li>
-        <qm>“让每一个值得被保留的瞬间都能成为永远。”</qm>
+        <qm>“愿每一个值得被保留的瞬间都能够被记录。”</qm>
       </ul>
     </div>
   </section>
 
   <!-- 分隔线 -->
   <div class="divider"></div>
+  <div class="section-divider"><span>个人作品</span></div>
+
+
+
 
   <!-- 作品集 -->
   <section class="portfolio">
@@ -241,6 +289,11 @@
 
   setInterval(showNextImage, 5000); // 每3秒切换一次
 </script>
+
+<footer>
+  <div class="footer-line"></div>
+  <p>© 2025 Walter He. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
