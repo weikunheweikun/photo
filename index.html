@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <title>何炜坤的主页</title>
   <style>
+
     body {
-      margin: 50px;
+      margin: 0px;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       background-color: #F0F0F0;
       color: #333;
@@ -17,7 +18,7 @@
   align-items: center;    /* ← 关键：竖直居中 */
   max-width: 1400px;       /* 限制内容区最大宽度 */
   margin: 0 auto;          /* 居中 */
-  padding: 40px;
+  padding: 35px;
   background: linear-gradient(to left, #000 0%, #808080 50%, #fff 100%);
   border-radius: 8px;      /* 圆角更美观，可选 */
 }
@@ -48,7 +49,7 @@
   font-size: 24px;
   font-weight: solid;
   font-style: italic;
-  margin: 60px auto;
+  margin: 50px auto;
   max-width: 800px;
   color: #808080;   /* 字体颜色，可以调浅一点 */
   line-height: 1.6;
@@ -56,33 +57,52 @@
 
 
 /*精选作品*/
+
+/* 精选作品区域 */
 .gallery-section {
   max-width: 1200px;
-  margin: 60px auto;
+  margin: -20px auto;
   position: relative; /* 按钮绝对定位参考 */
 }
 
+/* 图片滑动容器 */
 .gallery-container {
-  overflow: hidden;
+  overflow: hidden;  /* 限制图片溢出整体容器 */
+  height: 330px;
   margin-top: 30px;
 }
 
+/* 滑动轨道 */
 .gallery-track {
   display: flex;
   transition: transform 0.5s ease;
 }
 
+/* 单个图片容器 */
 .gallery-item {
   flex: 0 0 auto;
   width: 300px;        /* 每张图片宽度 */
-  margin: 0 30px;      /* 图片间距 */
+  margin: 15px 30px;      /* 图片间距 */
+  position: relative;
+  overflow: visible;   /* 内部图片可以放大 */
 }
 
+/* 图片样式 */
 .gallery-item img {
   width: 100%;
   object-fit: cover;
-  border: 3px solid #000000;  
+  border: 3px solid #000000;
+  transition: transform 0.3s ease;
+  display: block;
+  cursor: pointer;
 }
+
+/* 鼠标悬停放大 */
+.gallery-item img:hover {
+  transform: scale(1.05); /* 放大 5% */
+}
+
+
 
 /* 按钮样式 */
 .gallery-btn {
@@ -113,6 +133,7 @@
   opacity: 0.45;
   cursor: default;
 }
+
 
 
     /* 分隔线 */
@@ -237,35 +258,6 @@
     }
 
 
-/* Lightbox 基础 */
-.lightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  flex-direction: column;
-}
-
-.lightbox img {
-  max-width: 90%;
-  max-height: 80%;
-}
-
-/* 关闭按钮 */
-.lightbox .close {
-  position: absolute;
-  top: 20px;
-  right: 40px;
-  color: white;
-  font-size: 40px;
-  font-weight: bold;
-  cursor: pointer;
-  user-select: none;
-}
-
 
 
 /* 整体区块，控制系列作品区域的宽度和居中 */
@@ -343,6 +335,77 @@
   margin: 0 auto 15px auto; /* 居中并和文字留间距 */
 }
 
+/* Lightbox 按钮样式 */
+.lightbox .lb-btn {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10020;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  border: none;
+  font-size: 34px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+.lightbox .lb-prev { left: 60px; }
+.lightbox .lb-next { right: 60px; }
+.lightbox .lb-btn:hover {
+  background: rgba(0,0,0,0.8);
+}
+@media (max-width: 700px) {
+  .lightbox .lb-btn {
+    font-size: 26px;
+    padding: 8px 10px;
+  }
+  .lightbox .lb-prev { left: 10px; }
+  .lightbox .lb-next { right: 10px; }
+}
+
+
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+
+.lightbox .close {
+  position: fixed;   /* 固定在窗口，不跟随图片 */
+  top: 30px;         /* 距离顶部 30px */
+  right: 40px;       /* 距离右侧 40px */
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+  user-select: none;
+  z-index: 10030;    /* 要比图片和按钮都高 */
+}
+
+.lightbox .close:hover {
+  color: #ccc;
+}
+
+
+#lightbox-img {
+  max-width: 90%;
+  max-height: 80vh;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  margin: 0 auto;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+
+
+
+
   </style>
 </head>
 <body>
@@ -383,12 +446,6 @@
     </div>
   </div>
   <button class="gallery-btn next">›</button>
-</div>
-
-<!-- Lightbox -->
-<div id="lightbox" class="lightbox">
-  <span class="close" onclick="closeLightbox()">&times;</span>
-  <img id="lightbox-img" src="">
 </div>
 
 
@@ -473,11 +530,6 @@
       <p>《吃早餐》</p>
     </div>
 
-    
-<div id="lightbox" class="lightbox" onclick="closeLightbox()">
-  <img id="lightbox-img" src="">
-</div>
-
   </section>
 
 
@@ -515,9 +567,16 @@
 
 </section>
 
-
-
-
+<!-- 统一的 Lightbox -->
+ <div id="lightbox" class="lightbox" style="display:none;">
+  <div class="lb-overlay" style="position:absolute;inset:0;"></div>
+  <span class="close">&times;</span>
+  <span class="lb-btn lb-prev">&#10094;</span>
+  <span class="lb-btn lb-next">&#10095;</span>
+  <div class="lb-inner" role="dialog" aria-modal="true" style="position:relative;z-index:1;text-align:center;">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+</div>
 
 
 
@@ -579,45 +638,7 @@
 
 
 </script>
-
-<script>
-let currentIndex = 0;
-const images = document.querySelectorAll(".portfolio-item img,.gallery-item img,.series-gallery img");
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
-
-// 点击作品打开 Lightbox
-images.forEach((img, index) => {
-  img.addEventListener("click", () => openLightbox(index,images));
-});
-
-function openLightbox(index) {
-  currentIndex = index;
-  lightboxImg.src = images[currentIndex].src;
-  lightbox.style.display = "flex";
-}
-
-// 点击背景关闭 Lightbox
-lightbox.addEventListener("click", (e) => {
-  if (e.target === lightbox) {
-    closeLightbox();
-  }
-});
-
-// 原来的关闭函数（按钮可保留）
-function closeLightbox() {
-  lightbox.style.display = "none";
-}
-// 监听键盘按键
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") { // Esc 键
-    closeLightbox();
-  }
-});
-
-
-</script>
-
+=
 
 
 <script>
@@ -736,6 +757,97 @@ document.addEventListener("keydown", (e) => {
 })();
 
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbClose = lightbox.querySelector('.close');
+  const lbOverlay = lightbox.querySelector('.lb-overlay');
+  const btnPrev = lightbox.querySelector('.lb-prev');
+  const btnNext = lightbox.querySelector('.lb-next');
+
+  let currentGroup = [];
+  let currentIndex = 0;
+
+  function bindSelector(selector) {
+    const nodes = Array.from(document.querySelectorAll(selector));
+    nodes.forEach((imgEl, i) => {
+      imgEl.style.cursor = 'zoom-in';
+      imgEl.addEventListener('click', () => openLightbox(i, nodes));
+    });
+  }
+
+  bindSelector('.gallery-item img');
+  bindSelector('.portfolio-item img');
+  bindSelector('.series-gallery img');
+
+  function openLightbox(index, group) {
+    currentGroup = group;
+    currentIndex = index;
+    showImage();
+    lightbox.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.style.display = 'none';
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  function showImage() {
+    lbImg.src = currentGroup[currentIndex].dataset.full || currentGroup[currentIndex].src;
+  }
+
+  function changeSlide(step) {
+    if (!currentGroup.length) return;
+    const newIndex = currentIndex + step;
+    if (newIndex < 0 || newIndex >= currentGroup.length) return;
+
+    const img = lbImg;
+    img.style.transform = `translateX(${step * 80}px)`;
+    img.style.opacity = "0";
+
+    setTimeout(() => {
+      currentIndex = newIndex;
+      img.src = currentGroup[currentIndex].dataset.full || currentGroup[currentIndex].src;
+
+      img.style.transition = "none";
+      img.style.transform = `translateX(${-step * 80}px)`;
+      img.style.opacity = "0";
+
+      setTimeout(() => {
+        img.style.transition = "transform 0.3s ease, opacity 0.3s ease";
+        img.style.transform = "translateX(0)";
+        img.style.opacity = "1";
+      }, 50);
+    }, 300);
+  }
+
+  btnPrev.addEventListener("click", () => changeSlide(-1));
+  btnNext.addEventListener("click", () => changeSlide(1));
+  lbClose.addEventListener("click", closeLightbox);
+  lbOverlay.addEventListener("click", closeLightbox);
+
+  document.addEventListener("keydown", e => {
+    if (lightbox.style.display !== 'flex') return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowLeft") changeSlide(-1);
+    if (e.key === "ArrowRight") changeSlide(1);
+  });
+
+  // 手机滑动
+  let startX = 0;
+  lightbox.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+  lightbox.addEventListener("touchend", e => {
+    const diff = e.changedTouches[0].clientX - startX;
+    if (Math.abs(diff) > 50) changeSlide(diff > 0 ? -1 : 1);
+  });
+});
+
+</script>
+
 
 
 </body>
