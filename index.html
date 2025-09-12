@@ -433,18 +433,18 @@
 @media (hover: none) and (pointer: coarse) {
 
   #lightbox-title {
-    bottom: 80px;
+    bottom: -80px;
     font-size: 40px;
   }
   footer {
     font-size: 24px;
   }  
    .portfolio-item p {
-      font-size: 30px;
+      font-size: 40px;
     }
 
 .section-divider span {
-  font-size: 40px;
+  font-size: 50px;
 }
 
 .about-section {
@@ -455,7 +455,7 @@
   font-size: 40px;
 }
 .section-divider span {
-  font-size: 40px;
+  font-size: 50px;
 }
 
 .intro h1 {
@@ -469,7 +469,8 @@
 
 
 .quote-section {
-  font-size: 40px;
+  font-size: 50px;
+  margin: 80px auto;
 }
 
 .series-title {
@@ -477,7 +478,7 @@
 }
 
 .series-desc {
-  font-size: 30px;
+  font-size: 40px;
 }
 
 
@@ -491,20 +492,39 @@
     
 
 .gallery-item {
-  width: 400px;        /* 每张图片宽度 */
-  margin: 15px 30px;      /* 图片间距 */
+  width: 500px;        /* 每张图片宽度 */
 }
 
 
     .portfolio {
-      margin: 0 auto 60px;
       grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      column-gap:80px;
-      row-gap: 60px;
-      padding: 0 20px;
     }
 
 
+.gallery-container {
+  height: 550px;
+}
+
+.series-gallery {
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+
+
+.section-divider::before,
+.section-divider::after {
+  height: 4px;
+}
+
+
+.header {
+  padding: 60px;
+  background: #f0f0f0
+}
+
+.gallery-section {
+  margin: 0px auto;
+}
 
 }
 
