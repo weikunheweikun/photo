@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>何炜坤的主页</title>
   <style>
 
@@ -10,8 +10,6 @@
       margin: 0;
       padding: 0;
       width: 100%;
-      max-width: 100%;
-      overflow-x: hidden; /* 避免横向滚动 */
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       background-color: #F0F0F0;
       color: #333;
@@ -67,6 +65,7 @@
 .gallery-section {
   max-width: 1200px;
   margin: -20px auto;
+  padding: 0 30px;          /* 左右留空，保证按钮可见 */
   position: relative; /* 按钮绝对定位参考 */
 }
 
@@ -406,7 +405,6 @@
   margin: 0 auto;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
-
 
 
 
