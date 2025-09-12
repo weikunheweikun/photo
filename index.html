@@ -403,6 +403,11 @@
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+@media (max-width: 700px) {
+  .gallery-btn {
+    display: none; /* 小屏幕隐藏按钮 */
+  }
+}
 
 
 
@@ -707,11 +712,27 @@
   }
 
   // touch 结束
-  function touchEnd() {
-    isDragging = false;
-    prevTranslate = currentTranslate; // 松手保持当前位置
-    cancelAnimationFrame(animationID);
+ function touchEnd() {
+  isDragging = false;
+  cancelAnimationFrame(animationID);
+
+  const maxTranslate = getMaxTranslate();
+
+  // 超出左边界
+  if (currentTranslate > 0) {
+    currentTranslate = 0;
+  } 
+  // 超出右边界
+  else if (Math.abs(currentTranslate) > maxTranslate) {
+    currentTranslate = -maxTranslate;
   }
+
+  prevTranslate = currentTranslate;
+
+  track.style.transition = 'transform 0.3s ease'; // 平滑回弹
+  setSliderPosition();
+}
+
 
   // 桌面端按钮滑动（可选）
   if (prevBtn && nextBtn) {
