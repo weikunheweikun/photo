@@ -110,10 +110,10 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.2);
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 10px 10px;
   cursor: pointer;
   opacity: 1;
   transition: opacity 0.3s;
@@ -122,18 +122,19 @@
 
 /* 左右按钮位置在图片两侧，不挡图片 */
 .gallery-btn.prev {
-  left: -40px;  /* 可根据需要调整 */
+  left: 0px;  /* 可根据需要调整 */
 }
 
 .gallery-btn.next {
-  right: -50px; /* 可根据需要调整 */
+  right: 0px; /* 可根据需要调整 */
 }
 
-/* 不可点击时半透明 */
+/* 不可点击时透明 */
 .gallery-btn[disabled] {
-  opacity: 0.45;
+  opacity: 0;
   cursor: default;
 }
+.gallery-btn:hover { background: rgba(0,0,0,0.6); }
 
 
 
@@ -403,12 +404,6 @@
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-@media (max-width: 700px) {
-  .gallery-btn.prev,
-  .gallery-btn.next {
-    display: none !important;
-  }
-}
 
 
 
@@ -451,7 +446,6 @@
     </div>
   </div>
   <button class="gallery-btn next">›</button>
-</div>
 
 
 </section>
@@ -877,8 +871,6 @@ function closeLightbox() {
 });
 
 </script>
-
-
 
 </body>
 </html>
