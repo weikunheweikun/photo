@@ -806,7 +806,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (newIndex < 0 || newIndex >= currentGroup.length) return;
 
     const img = lbImg;
-    img.style.transform = `translateX(${step * 80}px)`;
+    img.style.transform = `translateX(${-step * 80}px)`;
     img.style.opacity = "0";
 
     setTimeout(() => {
@@ -814,7 +814,7 @@ document.addEventListener('DOMContentLoaded', () => {
       img.src = currentGroup[currentIndex].dataset.full || currentGroup[currentIndex].src;
 
       img.style.transition = "none";
-      img.style.transform = `translateX(${-step * 80}px)`;
+      img.style.transform = `translateX(${step * 80}px)`;
       img.style.opacity = "0";
 
       setTimeout(() => {
