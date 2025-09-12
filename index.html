@@ -375,7 +375,23 @@
   .lightbox .lb-next { right: 10px; }
 }
 
-
+.lb-inner {
+  position: relative;
+  text-align: center;
+}
+#lightbox-title {
+  position: absolute;
+  bottom: -40px;           /* 离图片底部 10px */
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 500;
+  max-width: 90%;
+  text-align: center;
+  z-index: 10030;
+  pointer-events: none;    /* 避免挡住按钮点击 */
+}
 
 .lightbox {
   position: fixed;
@@ -487,58 +503,57 @@
   <!-- 作品集 -->
   <section class="portfolio">
     <div class="portfolio-item">
-      <img src="images/zuopin1.jpg" alt="">
+      <img src="images/zuopin1.jpg" alt=""data-title="《无题》">
       <p>《无题》</p>
     </div>
     <div class="portfolio-item">
-      <img src="images/zuopin2.jpg" alt="">
+      <img src="images/zuopin2.jpg" alt=""data-title="《穿越》">
       <p>《穿越》</p>
     </div>
     <div class="portfolio-item">
-      <img src="images/zuopin3.jpg" alt="">
+      <img src="images/zuopin3.jpg" alt=""data-title="《梦》">
       <p>《梦》</p>
     </div>
     <div class="portfolio-item">
-      <img src="images/zuopin4.jpg" alt="">
+      <img src="images/zuopin4.jpg" alt=""data-title="《奇怪的影子》">
       <p>《奇怪的影子》</p>
     </div>
     <div class="portfolio-item">
-      <img src="images/zuopin5.jpg" alt="">
+      <img src="images/zuopin5.jpg" alt=""data-title="《无题》">
       <p>《无题》</p>
     </div>
     <div class="portfolio-item">
-      <img src="images/zuopin6.jpg" alt="">
+      <img src="images/zuopin6.jpg" alt=""data-title="《不稳定的楼》">
       <p>《不稳定的楼》</p>
     </div>
 <div class="portfolio-item">
-      <img src="images/zuopin7.jpg" alt="">
+      <img src="images/zuopin7.jpg" alt=""data-title="《街角》">
       <p>《街角》</p>
     </div>
     <div class="portfolio-item">
-      <img src="images/zuopin8.jpg" alt="">
+      <img src="images/zuopin8.jpg" alt=""data-title="《迷惘》">
       <p>《迷惘》</p>
     </div>
     <div class="portfolio-item">
-      <img src="images/zuopin9.jpg" alt="">
+      <img src="images/zuopin9.jpg" alt=""data-title="《过节》">
       <p>《过节》</p>
     </div>
 
         <div class="portfolio-item">
-      <img src="images/zuopin10.jpg" alt="">
+      <img src="images/zuopin10.jpg" alt=""data-title="《买卖》">
       <p>《买卖》</p>
     </div>
 
  <div class="portfolio-item">
-      <img src="images/zuopin11.jpg" alt="">
+      <img src="images/zuopin11.jpg" alt=""data-title="《农民》">
       <p>《农民》</p>
     </div>
  <div class="portfolio-item">
-      <img src="images/zuopin12.jpg" alt="">
+      <img src="images/zuopin12.jpg" alt=""data-title="《吃早餐》">
       <p>《吃早餐》</p>
     </div>
 
   </section>
-
 
   
   
@@ -582,6 +597,7 @@
   <span class="lb-btn lb-next">&#10095;</span>
   <div class="lb-inner" role="dialog" aria-modal="true" style="position:relative;z-index:1;text-align:center;">
     <img id="lightbox-img" src="" alt="">
+    <div id="lightbox-title"></div>
   </div>
 </div>
 
@@ -828,9 +844,14 @@ function closeLightbox() {
   lbImg.src = '';
 }
 
-  function showImage() {
-    lbImg.src = currentGroup[currentIndex].dataset.full || currentGroup[currentIndex].src;
-  }
+ function showImage() {
+  lbImg.src = currentGroup[currentIndex].dataset.full || currentGroup[currentIndex].src;
+
+  // 获取标题
+  const title = currentGroup[currentIndex].dataset.title || "";
+  document.getElementById("lightbox-title").textContent = title;
+}
+
 
   function changeSlide(step) {
     if (!currentGroup.length) return;
@@ -843,6 +864,8 @@ function closeLightbox() {
 
     setTimeout(() => {
       currentIndex = newIndex;
+      
+      showImage();
       img.src = currentGroup[currentIndex].dataset.full || currentGroup[currentIndex].src;
 
       img.style.transition = "none";
