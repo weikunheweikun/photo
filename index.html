@@ -300,28 +300,6 @@
   user-select: none;
 }
 
-/* 左右切换按钮 */
-.lightbox-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  border: none;
-  color: white;
-  font-size: 30px;
-  cursor: pointer;
-  padding: 10px 15px;
-  border-radius: 50%;
-  user-select: none;
-}
-
-.lightbox-btn.prev { left: 30px; }
-.lightbox-btn.next { right: 30px; }
-
-.lightbox-btn:hover {
-  background: rgba(0,0,0,0.8);
-}
-
 
 
 /* 整体区块，控制系列作品区域的宽度和居中 */
@@ -446,8 +424,6 @@
 <div id="lightbox" class="lightbox">
   <span class="close" onclick="closeLightbox()">&times;</span>
   <img id="lightbox-img" src="">
-  <button class="lightbox-btn prev" onclick="changeSlide(-1.5)">&#10094;</button>
-  <button class="lightbox-btn next" onclick="changeSlide(1.5)">&#10095;</button>
 </div>
 
 
@@ -604,107 +580,159 @@
 
 </script>
 
-
-<script>let currentIndex = 0;
+<script>
+let currentIndex = 0;
 const images = document.querySelectorAll(".portfolio-item img");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
 
+// 点击作品打开 Lightbox
 images.forEach((img, index) => {
   img.addEventListener("click", () => openLightbox(index));
 });
 
 function openLightbox(index) {
   currentIndex = index;
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById("lightbox-img");
   lightboxImg.src = images[currentIndex].src;
   lightbox.style.display = "flex";
 }
 
-function closeLightbox() {
-  document.getElementById("lightbox").style.display = "none";
-}
+// 点击背景关闭 Lightbox
+lightbox.addEventListener("click", (e) => {
+  if (e.target === lightbox) {
+    closeLightbox();
+  }
+});
 
-function changeSlide(step) {
-  currentIndex = (currentIndex + step + images.length) % images.length;
-  document.getElementById("lightbox-img").src = images[currentIndex].src;
+// 原来的关闭函数（按钮可保留）
+function closeLightbox() {
+  lightbox.style.display = "none";
 }
+// 监听键盘按键
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") { // Esc 键
+    closeLightbox();
+  }
+});
+
+
 </script>
 
 
 
 <script>
-  (function () {
+ (function () {
   const track = document.querySelector('.gallery-track');
   const prevBtn = document.querySelector('.gallery-btn.prev');
   const nextBtn = document.querySelector('.gallery-btn.next');
   const items = Array.from(document.querySelectorAll('.gallery-item'));
   const container = document.querySelector('.gallery-container');
 
-  let currentIndex = 0;
+  let currentTranslate = 0;   // 当前位移
+  let prevTranslate = 0;      // 上一次位移
+  let startX = 0;             // touchstart 初始位置
+  let isDragging = false;
+  let animationID;
 
-  function updateGallery() {
+  // 获取每张图片宽度 + 间距
+  function getItemWidth() {
     const style = getComputedStyle(items[0]);
     const marginLeft = parseFloat(style.marginLeft);
     const marginRight = parseFloat(style.marginRight);
-    const itemWidth = items[0].getBoundingClientRect().width + marginLeft + marginRight;
-
-    const containerWidth = container.getBoundingClientRect().width;
-    const visibleCount = Math.floor(containerWidth / itemWidth);
-
-    const maxIndex = Math.max(0, items.length - visibleCount);
-
-    // 限制 currentIndex
-    if (currentIndex < 0) currentIndex = 0;
-    if (currentIndex > maxIndex) currentIndex = maxIndex;
-
-    const offset = -currentIndex * itemWidth;
-    track.style.transform = `translateX(${offset}px)`;
-
-    prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex === maxIndex;
+    return items[0].getBoundingClientRect().width + marginLeft + marginRight;
   }
 
-  prevBtn.addEventListener('click', () => {
-    currentIndex--;
-    updateGallery();
-  });
+  // 最大可移动距离
+  function getMaxTranslate() {
+    const itemWidth = getItemWidth();
+    const containerWidth = container.getBoundingClientRect().width;
+    const totalWidth = itemWidth * items.length;
+    return Math.max(0, totalWidth - containerWidth);
+  }
 
-  nextBtn.addEventListener('click', () => {
-    currentIndex++;
-    updateGallery();
-  });
+  // 设置 transform
+  function setSliderPosition() {
+    track.style.transform = `translateX(${currentTranslate}px)`;
+  }
 
-  // ====== 手机滑动逻辑 ======
-  let startX = 0;
-  let endX = 0;
+  function animation() {
+    setSliderPosition();
+    if (isDragging) requestAnimationFrame(animation);
+  }
 
-  container.addEventListener('touchstart', (e) => {
+  // touch 开始
+  function touchStart(e) {
     startX = e.touches[0].clientX;
-  });
+    isDragging = true;
+    track.style.transition = 'none';
+    animationID = requestAnimationFrame(animation);
+  }
 
-  container.addEventListener('touchmove', (e) => {
-    endX = e.touches[0].clientX;
-  });
+  // touch 移动
+  function touchMove(e) {
+    if (!isDragging) return;
+    const currentX = e.touches[0].clientX;
+    let diff = currentX - startX;
+    let nextTranslate = prevTranslate + diff;
 
-  container.addEventListener('touchend', () => {
-    const diff = startX - endX;
+    // 阻尼处理：超出左边界或右边界时减半移动距离
+    const maxTranslate = getMaxTranslate();
+    if (nextTranslate > 0) {
+      nextTranslate *= 0.3;  // 左边界阻尼
+    } else if (Math.abs(nextTranslate) > maxTranslate) {
+      nextTranslate = -maxTranslate + (nextTranslate + maxTranslate) * 0.3; // 右边界阻尼
+    }
 
-    // 滑动阈值，避免轻微滑动触发
-    const threshold = 30;
+    currentTranslate = nextTranslate;
+  }
 
-    if (diff > threshold) {
-      // 向左滑动 → 下一张
-      currentIndex++;
-      updateGallery();
-    } else if (diff < -threshold) {
-      // 向右滑动 → 上一张
-      currentIndex--;
-      updateGallery();
+  // touch 结束
+  function touchEnd() {
+    isDragging = false;
+    prevTranslate = currentTranslate; // 松手保持当前位置
+    cancelAnimationFrame(animationID);
+  }
+
+  // 桌面端按钮滑动（可选）
+  if (prevBtn && nextBtn) {
+    prevBtn.addEventListener('click', () => {
+      const itemWidth = getItemWidth();
+      currentTranslate = Math.min(prevTranslate + itemWidth, 0); // 不超左边界
+      prevTranslate = currentTranslate;
+      track.style.transition = 'transform 0.5s ease';
+      setSliderPosition();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const itemWidth = getItemWidth();
+      const maxTranslate = getMaxTranslate();
+      currentTranslate = Math.max(prevTranslate - itemWidth, -maxTranslate); // 不超右边界
+      prevTranslate = currentTranslate;
+      track.style.transition = 'transform 0.5s ease';
+      setSliderPosition();
+    });
+  }
+
+  // 事件绑定
+  container.addEventListener('touchstart', touchStart);
+  container.addEventListener('touchmove', touchMove);
+  container.addEventListener('touchend', touchEnd);
+
+  window.addEventListener('resize', () => {
+    // resize 后确保不超边界
+    const maxTranslate = getMaxTranslate();
+    if (Math.abs(currentTranslate) > maxTranslate) {
+      currentTranslate = -maxTranslate;
+      prevTranslate = currentTranslate;
+      track.style.transition = 'transform 0.5s ease';
+      setSliderPosition();
     }
   });
 
-  window.addEventListener('resize', updateGallery);
-  window.addEventListener('load', updateGallery);
+  // 初始化
+  currentTranslate = 0;
+  prevTranslate = 0;
+  setSliderPosition();
 })();
 
 </script>
