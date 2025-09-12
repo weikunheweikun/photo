@@ -781,20 +781,30 @@ document.addEventListener('DOMContentLoaded', () => {
   bindSelector('.gallery-item img');
   bindSelector('.portfolio-item img');
   bindSelector('.series-gallery img');
+function preventScroll(e) {
+  e.preventDefault();
+}
 
-  function openLightbox(index, group) {
-    currentGroup = group;
-    currentIndex = index;
-    showImage();
-    lightbox.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  }
+function openLightbox(index, group) {
+  currentGroup = group;
+  currentIndex = index;
+  showImage();
+  lightbox.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  
+  // 阻止背景滑动
+  document.addEventListener('touchmove', preventScroll, { passive: false });
+}
 
-  function closeLightbox() {
-    lightbox.style.display = 'none';
-    document.body.style.overflow = '';
-    lbImg.src = '';
-  }
+function closeLightbox() {
+  lightbox.style.display = 'none';
+  document.body.style.overflow = '';
+  
+  // 恢复背景滑动
+  document.removeEventListener('touchmove', preventScroll, { passive: false });
+  
+  lbImg.src = '';
+}
 
   function showImage() {
     lbImg.src = currentGroup[currentIndex].dataset.full || currentGroup[currentIndex].src;
