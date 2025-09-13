@@ -467,7 +467,7 @@
 
 .quote-section {
   font-size: 54px;
-  margin: 120px auto;
+  margin: 130px auto;
 }
 
 .series-title {
@@ -523,6 +523,8 @@
 
 
 }
+
+
 
 
   </style>
@@ -679,8 +681,6 @@
     </div>
   </div>
 
-
-
 </section>
 
 <!-- 统一的 Lightbox -->
@@ -694,8 +694,6 @@
     <div id="lightbox-title"></div>
   </div>
 </div>
-
-
 
 
 <footer>
@@ -917,16 +915,17 @@ function preventScroll(e) {
   e.preventDefault();
 }
 
-function openLightbox(index, group) {
-  currentGroup = group;
-  currentIndex = index;
-  showImage();
-  lightbox.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-  
-  // 阻止背景滑动
-  document.addEventListener('touchmove', preventScroll, { passive: false });
-}
+
+  function openLightbox(index, group) {
+    currentGroup = group;
+    currentIndex = index;
+    showImage();
+    lightbox.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    
+    // 阻止背景滑动
+    document.addEventListener('touchmove', preventScroll, { passive: false });
+  }
 
 function closeLightbox() {
   lightbox.style.display = 'none';
@@ -994,7 +993,6 @@ function closeLightbox() {
     if (Math.abs(diff) > 50) changeSlide(diff > 0 ? -1 : 1);
   });
 });
-
 </script>
 
 </body>
