@@ -29,12 +29,13 @@
 
 .navbar ul {
   margin: 0;
-  padding: 10px 30px;
+  padding: 0 30px;
   display: flex;
   gap: 30px;
   list-style: none;
   justify-content: center;
   align-items: center;
+  height: 100%; /* 高度撑满 navbar */
 }
 
 
@@ -501,7 +502,7 @@ body {
 
 
 .navbar {
-  height: 150px;
+  height: 160px;
   background: #2B2B2B;
   z-index: 1000;
 }
@@ -534,10 +535,16 @@ body {
 
 /* 避免导航栏遮挡内容 */
 body {
-  padding-top: 150px;
+  padding-top: 160px;
 }
 
-
+/* 给所有主要区块设置滚动时的上边距 */
+#intro,
+#about,
+#portfolio,
+#series {
+  scroll-margin-top: 200px;  /* 导航栏高度+一点点缓冲 */
+}
 
   #lightbox-title {
     bottom: -80px;
