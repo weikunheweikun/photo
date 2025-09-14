@@ -68,6 +68,18 @@ body {
   scroll-margin-top: 80px;  /* 导航栏高度+一点点缓冲 */
 }
 
+.email {
+  white-space: normal; /* 允许换行 */
+}
+
+.label {
+  white-space: nowrap; /* 确保“邮箱:”永远在一行 */
+}
+
+.address {
+  display: inline-block;    /* 单独成一个可换行的块 */
+  overflow-wrap: anywhere;  /* 地址太长时允许断行 */
+}
 
 
     /* 顶部个人信息区 */
