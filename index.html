@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <title>何炜坤的主页</title>
+  <meta charset="UTF-8"><meta name="robots" content="index, follow">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="https://weikunheweikun.github.io/website/sitemap.xml">
+  <title>何炜坤的摄影主页</title>
   <style>
 
     body {
@@ -527,13 +528,83 @@
 
 
 
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 45px;
+  background: #2B2B2B;
+  z-index: 1000;
+}
+
+.navbar ul {
+  margin: 0;
+  padding: 10px 30px;
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  justify-content: center;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.navbar a:hover{
+  font-size: 17px;
+}
+
+/* 避免导航栏遮挡内容 */
+body {
+  padding-top: 45px;
+}
+
+/* 给所有主要区块设置滚动时的上边距 */
+#intro,
+#about,
+#portfolio,
+#series {
+  scroll-margin-top: 80px;  /* 导航栏高度+一点点缓冲 */
+}
+
+
 
   </style>
+
+
+<!-- SEO 基本标签 -->
+<meta name="description" content="这是何炜坤的摄影主页，记录影像与记忆。">
+
+<!-- Open Graph（社交媒体分享用） -->
+<meta property="og:title" content="何炜坤的摄影主页">
+<meta property="og:description" content="这是何炜坤的摄影主页，记录影像与记忆。">
+<meta property="og:image" content="https://weikunheweikun.github.io/website/images/touxiang.jpg">
+<meta property="og:url" content="https://weikunheweikun.github.io/website/">
+<meta property="og:type" content="website">
+
+
+
 </head>
 <body>
 
+<!-- 导航栏 -->
+<nav class="navbar">
+  <ul>
+    <li><a href="#intro">首页</a></li>
+    <li><a href="#about">个人经历</a></li>
+    <li><a href="#portfolio">单张作品</a></li>
+    <li><a href="#series">系列作品</a></li>
+  </ul>
+</nav>
+
+
+
   <!-- 顶部个人信息 -->
-  <section class="intro">
+  <section class="intro" id="intro">
    <div class="header">
   <div class="profile-pic">
     <img src="images/touxiang.jpg" alt="头像">
@@ -575,14 +646,14 @@
 
   <!-- 分隔线 -->
   <div class="divider"></div>
-  <div class="section-divider"><span>个人经历</span></div>
+  <div class="section-divider"id="about"><span>个人经历</span></div>
 
 
 
 
 
     <!-- 个人经历 -->
-    <main class="about-section">
+    <main class="about-section" >
         <p>2001年：出生于福建漳州，于厦门长大</p>
         <p>2023年：第一次拿起相机，从此开始享受拍照的乐趣</p>
         <p>2025年：于医学院本科毕业，拍摄编辑组图《学校记忆》</p>
@@ -591,8 +662,8 @@
     </main>
 
   <!-- 分隔线 -->
-  <div class="divider"></div>
-  <div class="section-divider"><span>单张作品</span></div>
+  <div class="divider" ></div>
+  <div class="section-divider"id="portfolio"><span>单张作品</span></div>
 
 
 
@@ -657,11 +728,11 @@
   <!-- 分隔线 -->
    
   <div class="divider"></div>
-  <div class="section-divider"><span>系列作品</span></div>
+  <div class="section-divider"id="series"><span>系列作品</span></div>
 
 
 <!-- 系列作品整体容器 -->
-<section class="series-section">
+<section class="series-section" >
 
   <!-- 第一组作品 -->
   <div class="series">
