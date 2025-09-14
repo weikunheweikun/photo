@@ -4,7 +4,7 @@
   <meta charset="UTF-8"><meta name="robots" content="index, follow">
   <meta name="google-site-verification" content="nEOeGxhfCDGvdsvw2cqB0ZPUhFKktZ8nbJOu51uAZrc" />
   <link rel="sitemap" type="application/xml" title="Sitemap" href="https://weikunheweikun.github.io/website/sitemap.xml">
-  <title>何炜坤的摄影主页</title>
+  <title data-zh="何炜坤的摄影主页" data-en="Walter He's photography website">何炜坤的摄影主页</title>
   <style>
 
     body {
@@ -13,6 +13,69 @@
       background-color: #F0F0F0;
       color: #333;
     }
+
+
+
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 45px;
+  background: #2B2B2B;
+  z-index: 1000;
+}
+
+.navbar ul {
+  margin: 0;
+  padding: 10px 30px;
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.navbar a {
+  color: #fff;
+  display: block;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+
+.navbar a:hover{
+  font-size: 17px;
+}
+/* English 单独样式 */
+.navbar a.small-link {
+  margin-left: 40px;
+  font-size: 14px;   /* 比其他导航项小 */
+}
+
+.navbar a.small-link:hover {
+  font-size: 15px;   /* 悬停稍微放大 */
+}
+
+
+/* 避免导航栏遮挡内容 */
+body {
+  padding-top: 45px;
+}
+
+/* 给所有主要区块设置滚动时的上边距 */
+#intro,
+#about,
+#portfolio,
+#series {
+  scroll-margin-top: 80px;  /* 导航栏高度+一点点缓冲 */
+}
+
+
 
     /* 顶部个人信息区 */
 .header {
@@ -434,6 +497,48 @@
 
 @media (hover: none) and (pointer: coarse) {
 
+
+
+
+.navbar {
+  height: 80px;
+  background: #2B2B2B;
+  z-index: 1000;
+}
+
+.navbar ul {
+  padding: 10px 30px;
+  gap: 40px;
+}
+
+
+
+.navbar a {
+  font-size: 30px;
+}
+
+
+.navbar a:hover{
+  font-size: 32px;
+}
+/* English 单独样式 */
+.navbar a.small-link {
+  margin-left: 50px;
+  font-size: 26px;   /* 比其他导航项小 */
+}
+
+.navbar a.small-link:hover {
+  font-size: 28px;   /* 悬停稍微放大 */
+}
+
+
+/* 避免导航栏遮挡内容 */
+body {
+  padding-top: 80px;
+}
+
+
+
   #lightbox-title {
     bottom: -80px;
     font-size: 42px;
@@ -528,52 +633,6 @@
 }
 
 
-
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 45px;
-  background: #2B2B2B;
-  z-index: 1000;
-}
-
-.navbar ul {
-  margin: 0;
-  padding: 10px 30px;
-  display: flex;
-  gap: 30px;
-  list-style: none;
-  justify-content: center;
-}
-
-.navbar a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 16px;
-  transition: color 0.3s;
-}
-
-.navbar a:hover{
-  font-size: 17px;
-}
-
-/* 避免导航栏遮挡内容 */
-body {
-  padding-top: 45px;
-}
-
-/* 给所有主要区块设置滚动时的上边距 */
-#intro,
-#about,
-#portfolio,
-#series {
-  scroll-margin-top: 80px;  /* 导航栏高度+一点点缓冲 */
-}
-
-
-
   </style>
 
 
@@ -595,10 +654,11 @@ body {
 <!-- 导航栏 -->
 <nav class="navbar">
   <ul>
-    <li><a href="#intro">首页</a></li>
-    <li><a href="#about">个人经历</a></li>
-    <li><a href="#portfolio">单张作品</a></li>
-    <li><a href="#series">系列作品</a></li>
+    <li><a href="#intro" data-zh="首页" data-en="Homepage">首页</a></li>
+    <li><a href="#about" data-zh="个人经历" data-en="Personal Experience">个人经历</a></li>
+    <li><a href="#portfolio" data-zh="单张作品" data-en="Single-sheet Artwork">单张作品</a></li>
+    <li><a href="#series"data-zh="系列作品" data-en="Series Artwork">系列作品</a></li>
+    <li><a href="javascript:void(0)" id="english-link" class="small-link"data-zh="English" data-en="中文版">English</a></li>
   </ul>
 </nav>
 
@@ -611,17 +671,17 @@ body {
     <img src="images/touxiang.jpg" alt="头像">
   </div>
   <div class="intro">
-    <h1>何炜坤</h1>
-    <p>摄影爱好者</p>
-    <p>邮箱: weikunheweikun@gmail.com</p>
-    <p>手机: +86 17338140709</p>
+    <h1 data-zh="何炜坤" data-en="Walter He">何炜坤</h1>
+    <p data-zh="摄影爱好者" data-en="Amateur photographer">摄影爱好者</p>
+    <p data-zh="邮箱: weikunheweikun@gmail.com" data-en="Email: weikunheweikun@gmail.com">邮箱: weikunheweikun@gmail.com</p>
+    <p data-zh="手机: +86 17338140709" data-en="Phone: +86 17338140709">手机: +86 17338140709</p>
   </div>
 </div>
   </section>
 
 
 <section class="quote-section">
-  <p>"愿每个值得保留的瞬间都能被记录。"</p>
+  <p data-zh='“愿每个值得保留的瞬间都能被记录。”'  data-en='"Hope every moment worth preserving be captured."'>“愿每个值得保留的瞬间都能被记录。”</p>
 </section>
 
 <!--精选作品-->
@@ -647,7 +707,7 @@ body {
 
   <!-- 分隔线 -->
   <div class="divider"></div>
-  <div class="section-divider"id="about"><span>个人经历</span></div>
+  <div class="section-divider"id="about"><span  data-zh="个人经历" data-en="Personal Experience">个人经历</span></div>
 
 
 
@@ -655,16 +715,16 @@ body {
 
     <!-- 个人经历 -->
     <main class="about-section" >
-        <p>2001年：出生于福建漳州，于厦门长大</p>
-        <p>2023年：第一次拿起相机，从此开始享受拍照的乐趣</p>
-        <p>2025年：于医学院本科毕业，拍摄编辑组图《学校记忆》</p>
-        <p>目前使用相机：理光GRⅢ，奥林巴斯OM2-SP</p>
+        <p data-zh="2001年：出生于福建漳州，于厦门长大" data-en="2001: Born in Zhangzhou, Fujian Province, and raised in Xiamen.">2001年：出生于福建漳州，于厦门长大</p>
+        <p data-zh="2023年：第一次拿起相机，从此开始享受拍照的乐趣" data-en="2023: The year I first picked up a camera and began to enjoy the pleasure of photography.">2023年：第一次拿起相机，从此开始享受拍照的乐趣</p>
+        <p data-zh="2025年：于医学院本科毕业，拍摄编辑组图《学校记忆》" data-en="2025: Graduated with a bachelor's degree from medical school, filmed and edited the series <i>School Memories</i>.">2025年：于医学院本科毕业，拍摄编辑组图《学校记忆》</p>
+        <p data-zh="目前使用相机：理光GRⅢ，奥林巴斯OM2-SP" data-en="Current cameras in use: Ricoh GR Ⅲ, Olympus OM-2-SP">目前使用相机：理光GRⅢ，奥林巴斯OM2-SP</p>
     </div>
     </main>
 
   <!-- 分隔线 -->
   <div class="divider" ></div>
-  <div class="section-divider"id="portfolio"><span>单张作品</span></div>
+  <div class="section-divider"id="portfolio"><span  data-zh="单张作品" data-en="Single-sheet Artwork">单张作品</span></div>
 
 
 
@@ -673,53 +733,53 @@ body {
   <section class="portfolio">
     <div class="portfolio-item">
       <img src="images/zuopin1.jpg" alt=""data-title="《无题》">
-      <p>《无题》</p>
+      <p data-zh="《无题》" data-en="<i>Untitled</i>">《无题》</p>
     </div>
     <div class="portfolio-item">
       <img src="images/zuopin2.jpg" alt=""data-title="《穿越》">
-      <p>《穿越》</p>
+      <p data-zh="《穿越》" data-en="<i>Going Through</i>">《穿越》</p>
     </div>
     <div class="portfolio-item">
       <img src="images/zuopin3.jpg" alt=""data-title="《梦》">
-      <p>《梦》</p>
+      <p data-zh="《梦》" data-en="<i>Dream</i>">《梦》</p>
     </div>
     <div class="portfolio-item">
       <img src="images/zuopin4.jpg" alt=""data-title="《奇怪的影子》">
-      <p>《奇怪的影子》</p>
+      <p data-zh="《奇怪的影子》" data-en="<i>Strange Shadow</i>">《奇怪的影子》</p>
     </div>
     <div class="portfolio-item">
       <img src="images/zuopin5.jpg" alt=""data-title="《无题》">
-      <p>《无题》</p>
+      <p data-zh="《无题》" data-en="<i>Untitled</i>">《无题》</p>
     </div>
     <div class="portfolio-item">
       <img src="images/zuopin6.jpg" alt=""data-title="《不稳定的楼》">
-      <p>《不稳定的楼》</p>
+      <p data-zh="《不稳定的楼》" data-en="<i>Unstable Building</i>">《不稳定的楼》</p>
     </div>
 <div class="portfolio-item">
       <img src="images/zuopin7.jpg" alt=""data-title="《街角》">
-      <p>《街角》</p>
+      <p data-zh="《街角》" data-en="<i>Street Corner</i>">《街角》</p>
     </div>
     <div class="portfolio-item">
       <img src="images/zuopin8.jpg" alt=""data-title="《迷惘》">
-      <p>《迷惘》</p>
+      <p data-zh="《迷惘》" data-en="<i>Bewilderment</i>">《迷惘》</p>
     </div>
     <div class="portfolio-item">
       <img src="images/zuopin9.jpg" alt=""data-title="《过节》">
-      <p>《过节》</p>
+      <p data-zh="《过节》" data-en="<i>Celebration</i>">《过节》</p>
     </div>
 
         <div class="portfolio-item">
       <img src="images/zuopin10.jpg" alt=""data-title="《买卖》">
-      <p>《买卖》</p>
+      <p data-zh="《买卖》" data-en="<i>Buying and Selling</i>">《买卖》</p>
     </div>
 
  <div class="portfolio-item">
       <img src="images/zuopin11.jpg" alt=""data-title="《农民》">
-      <p>《农民》</p>
+      <p data-zh="《农民》" data-en="<i>The Farmer</i>">《农民》</p>
     </div>
  <div class="portfolio-item">
       <img src="images/zuopin12.jpg" alt=""data-title="《吃早餐》">
-      <p>《吃早餐》</p>
+      <p data-zh="《吃早餐》" data-en="<i>Breakfast</i>">《吃早餐》</p>
     </div>
 
   </section>
@@ -729,7 +789,7 @@ body {
   <!-- 分隔线 -->
    
   <div class="divider"></div>
-  <div class="section-divider"id="series"><span>系列作品</span></div>
+  <div class="section-divider"id="series" ><span data-zh="系列作品" data-en="Series Artwork">系列作品</span></div>
 
 
 <!-- 系列作品整体容器 -->
@@ -737,8 +797,8 @@ body {
 
   <!-- 第一组作品 -->
   <div class="series">
-    <h2 class="series-title">《学校记忆》系列</h2> <!-- 系列标题 -->
-    <p class="series-desc">这一系列拍摄于2025年，在毕业前夕留下一些关于学校的记忆。</p> <!-- 系列简介 -->
+    <h2 class="series-title"data-zh="《学校记忆》" data-en="School Memories">《学校记忆》</h2> <!-- 系列标题 -->
+    <p class="series-desc" data-zh="这一系列拍摄于2025年，在毕业前夕留下一些关于学校的记忆。" data-en="This series was shot in 2025, capturing memories of the school on the eve of graduation.">这一系列拍摄于2025年，在毕业前夕留下一些关于学校的记忆。</p> <!-- 系列简介 -->
 
     <!-- 组图容器 -->
     <div class="series-gallery">
@@ -1067,6 +1127,22 @@ function closeLightbox() {
   });
 });
 </script>
+
+<script>
+const langBtn = document.getElementById("english-link");
+
+langBtn.addEventListener("click", () => {
+  document.querySelectorAll("[data-zh][data-en]").forEach(el => {
+    if(el.innerHTML === el.dataset.zh){   // 用 innerHTML 比较
+      el.innerHTML = el.dataset.en;       // 用 innerHTML 赋值，HTML 标签会生效
+    } else {
+      el.innerHTML = el.dataset.zh;
+    }
+  });
+});
+
+</Script>
+
 
 </body>
 </html>
