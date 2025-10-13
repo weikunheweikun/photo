@@ -382,7 +382,6 @@ body {
 /* 组图里的每张图 */
 .series-gallery img {
   width: 100%;              /* 图片宽度填满列 */
-  aspect-ratio: 1;     
   object-fit: cover;        /* 裁剪填充，不变形 */
   transition: transform 0.3s ease;
   
